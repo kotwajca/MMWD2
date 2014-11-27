@@ -36,33 +36,33 @@ public class Main {
         return matrix3D;
     }
 
-    static int moveValue(List<Integer> input, ArrayList<ArrayList<List<Integer>>> matrix, ArrayList<Integer> Time) {
+    static int moveValue(List<Integer> permutation, ArrayList<ArrayList<List<Integer>>> matrix, ArrayList<Integer> timeVector) {
         int FunctionValue = 0;
         int inputSize = matrix.get(0).size();
-        int timeSize = Time.size();
+        int timeSize = timeVector.size();
 
         for(int i = 0 ; i <inputSize; i++)
         {
             int TempDepth = 0; // temporary 2D matrix index
             int TempValue = 0; // temporary move value
-            if(FunctionValue>Time.get(timeSize-1)) // check if given time exceeds time vector
+            if(FunctionValue>timeVector.get(timeSize-1)) // check if given time exceeds time vector
             {
-                TempDepth = Time.get(Time.size()-1);
+                TempDepth = timeVector.get(timeVector.size()-1);
             }
             else
             {
-                while(FunctionValue>Time.get(TempDepth))
+                while(FunctionValue>timeVector.get(TempDepth))
                 {
                     TempDepth++;
                 }
             }
             if(i != inputSize-1)
             {
-                TempValue = matrix.get(TempDepth).get(input.get(i)).get(input.get(i+1));
+                TempValue = matrix.get(TempDepth).get(permutation.get(i)).get(permutation.get(i+1));
             }
             else
             {
-                TempValue = matrix.get(TempDepth).get(input.get(i)).get(input.get(0));
+                TempValue = matrix.get(TempDepth).get(permutation.get(i)).get(permutation.get(0));
             }
             FunctionValue=FunctionValue+TempValue;
             System.out.print(FunctionValue+ " ");
