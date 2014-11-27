@@ -2,6 +2,7 @@ package com.company;
 
 
 import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Random;
 
@@ -71,31 +72,76 @@ public class Main {
         return FunctionValue;
     }
 
-    public static void main(String[] args) {
+    static List<Integer> getNeighbour (List<Integer> startPermutation) {
+        Random rand = new Random();
+
+
+//        System.out.println(startPermutation);
+//        int neighbourhoodSize = 10;
+        // generate two not equal permutation elements
+        int element1Index = rand.nextInt(startPermutation.size());
+        int element2Index;
+        do
+        {
+            element2Index = rand.nextInt(startPermutation.size());
+        } while(element1Index == element2Index);
+
+
+//            ArrayList<Integer> tempPerm = (ArrayList<Integer>)startPermutation.clone();
+        List<Integer> tempPerm = new ArrayList<Integer>(startPermutation);
+        tempPerm.set(element1Index, startPermutation.get(element2Index));
+        tempPerm.set(element2Index, startPermutation.get(element1Index));
+//        System.out.println(matrix);
+
+        return tempPerm;
+    }
+
+
+
+
+    static void moveValueTest() {
         ArrayList<ArrayList<List<Integer>>> matrix = new ArrayList<ArrayList<List<Integer>>>();
-        ArrayList<Integer> Time = new ArrayList<Integer>();
-        ArrayList<Integer> input = new ArrayList<Integer>();
+        ArrayList<Integer> timeVector = new ArrayList<Integer>();
+        ArrayList<Integer> permutation = new ArrayList<Integer>();
 
         matrix = ReturnRandomMatrix();
         int size = matrix.get(0).size();
         for (int i =0; i<size; i++)
         {
-            input.add(i);
+            permutation.add(i);
         }
         int depth = matrix.size();
-        Time.add(0);                         // pierwszą wartością wektora czasu musi być 0
+        permutation.add(0);                         // pierwszą wartością wektora czasu musi być 0
         for (int i =1; i<depth;i++)
         {
-            Time.add(i);					// długość wektora taka jak głębokość tablicy
+            permutation.add(i);					// długość wektora taka jak głębokość tablicy
         }
 
 
 
-        System.out.println(moveValue(input, matrix, Time));
-        System.out.println(Time);
-        System.out.println(input.size());
+        System.out.println(moveValue(permutation, matrix, timeVector));
+        System.out.println(timeVector);
+        System.out.println(permutation.size());
     }
-}
+
+    static void getNeighbourTest() {
+        List<Integer> permutation = new ArrayList<Integer>();
+        for (int i = 0; i < 5; i++) {
+            permutation.add(i);
+        }
+
+        System.out.println(permutation);
+        System.out.println(getNeighbour(permutation));
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+//        moveValueTest();
+//        for (int i = 0; i < 10; i++)
+//            getNeighbourTest();
+        }
+
+    }
 /*
  * Matrix - tablica 3d wejścia
  * input - permutacja wejściowa
